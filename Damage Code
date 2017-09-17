@@ -1,0 +1,17 @@
+var enemyHealth = 1;
+var buff = 1;
+var debuff = 1;
+var playerDamage = 1;
+var enemyDefense = 1;
+var buffAmount = 1;
+var debuffAmount = 1;
+
+if (buff == 1 && debuff == 1) {
+  enemyHealth = enemyHealth - ((playerDamage * buffAmount * debuffAmount) / (enemyDefense));
+} else if (buff = 1) {
+  enemyHealth = enemyHealth - ((playerDamage * buffAmount) / (enemyDefense));
+} else if (debuff = 1) {
+  enemyHealth = enemyHealth - ((playerDamage * debuffAmount) / (enemyDefense));
+} else {
+  enemyHealth = enemyHealth - (playerDamage / enemyDefense);
+}
