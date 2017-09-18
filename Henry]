@@ -1,0 +1,48 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Henry : MonoBehaviour{
+
+	//variables
+	public int HP = 100;
+	public double attack = Random.Range(7f, 10f);
+	public float defense = 10f;
+	private int attackType;
+	private int defenseType;
+	public int enemyTestHP = 100;
+
+	//switches for buffs
+
+
+	void Update(){
+		switch(defenseType){
+		case 1:
+			defense = (defense - 1.33f);
+			break;
+		default:
+			defense = 10f;
+			break;
+		}
+		
+
+		switch (attackType) {
+		case 1:
+			attack = (attack * 1.5);
+			break;
+		case 2:
+			attack = (attack * 2);
+			break;
+		default:
+			attack = Random.Range(7, 10);
+			break;
+		}
+	}
+
+	
+	//buffs
+	//fear
+	//GUI
+	
+	
+}
