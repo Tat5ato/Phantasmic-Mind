@@ -14,6 +14,9 @@ This is done in the code page by creating a new code/file, going to the end of t
 Select this to create a pull request and add a comment on the new branch to indicate that the pull request is to resolve an issue
 Then when this is done, go to the comment section and there would be a selection to reference an issue; find the appropriate issue and select it and there, the pull request has been created
 
+# Making Branches 
+Create a new file and when you're scrolling down to commit it hit the check mark box for a new branch.
+
 # Please visit these sites for more help
 https://unity3d.com/learn/tutorials/projects/2d-roguelike-tutorial
 https://app.moqups.com/Tat5ato/4PQMoOPGXA/view
