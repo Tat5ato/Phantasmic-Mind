@@ -4,38 +4,38 @@ using UnityEngine;
 
 public class Damage : MonoBehaviour {
 
-    //may need to change public and private idk whatever becomes convinent
+	//may need to change public and private idk whatever becomes convinent
 	private bool buff = false;
 	private bool debuff = false;
-  	public int playerDamage = 30;
-	public int enemyDefense = 5;
+	public double playerDamage = 0;
+	public int enemyDefense = 2;
 	private int buffAmount  = 0;
 	private int debuffAmount = 0;
- 	private bool isEnemyHit = true;
-  
-   //calls on the enemyTestHP in henry.cs, can be replaced with a local variable if needed
+	private bool isEnemyHit = true;
 	Henry playerInstance;
-
+	//calls on the enemyTestHP in henry.cs, can be replaced with a local variable if needed
 
 	void Update(){
-  
-          //calling on enemyTestHpP pt.2
-		playerInstance = GetComponent<Henry> ();
-    
+
+		//calling on enemyTestHpP pt.2
+	
+		playerInstance = GetComponent<Henry>();
+		if (playerInstance.After == true) {
+			playerDamage = playerInstance.attack;
 		if (isEnemyHit == true) {
-          //buffed and debuffed
+			//buffed and debuffed
 			if (buff && debuff == true) {
 				playerInstance.enemyTestHP -= ((playerDamage * buffAmount * debuffAmount) / (enemyDefense));
 				isEnemyHit = false;
-         //buffed
+				//buffed
 			} else if (buff == true) {
-				playerInstance.enemyTestHP -= ((playerDamage * buffAmount * debuffAmount) / (enemyDefense));
+				playerInstance.enemyTestHP -= ((playerDamage * buffAmount) / (enemyDefense));
 				isEnemyHit = false;
-         //debuffed
+				//debuffed
 			} else if (debuff == true) {
 				playerInstance.enemyTestHP -= ((playerDamage * debuffAmount) / (enemyDefense));
 				isEnemyHit = false;
-          //neither buffed nor debuffed
+				//neither buffed nor debuffed
 			} else {
 				playerInstance.enemyTestHP -= (playerDamage / enemyDefense);
 				isEnemyHit = false;
@@ -44,6 +44,7 @@ public class Damage : MonoBehaviour {
 			}
 
 		}
+	}
 
 	}
 
