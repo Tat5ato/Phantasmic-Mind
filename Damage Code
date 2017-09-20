@@ -1,19 +1,50 @@
-var enemyHealth = 1;
-var buff = 1;
-var debuff = 1;
-var playerDamage = 1;
-var enemyDefense = 1;
-var buffAmount = 1;
-var debuffAmount = 1;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-if (isEnemyHit) {
-  if (buff && debuff) {
-    enemyHealth -= ((playerDamage * buffAmount * debuffAmount) / (enemyDefense));
-  } else if (buff) {
-    enemyHealth -= ((playerDamage * buffAmount) / (enemyDefense));
-  } else if (debuff) {
-    enemyHealth -= ((playerDamage * debuffAmount) / (enemyDefense));
-  } else {
-    enemyHealth = enemyHealth - (playerDamage / enemyDefense);
-  }
+public class Damage : MonoBehaviour {
+
+    //may need to change public and private idk whatever becomes convinent
+	private bool buff = false;
+	private bool debuff = false;
+  public int playerDamage = 30;
+	public int enemyDefense = 5;
+	private int buffAmount  = 0;
+	private int debuffAmount = 0;
+ 	private bool isEnemyHit = true;
+  
+   //calls on the enemyTestHP in henry.cs, can be replaced with a local variable if needed
+	Henry playerInstance;
+
+
+	void Update(){
+  
+          //calling on enemyTestHpP pt.2
+		playerInstance = GetComponent<Henry> ();
+    
+		if (isEnemyHit == true) {
+          //buffed and debuffed
+			if (buff && debuff == true) {
+				playerInstance.enemyTestHP -= ((playerDamage * buffAmount * debuffAmount) / (enemyDefense));
+				isEnemyHit = false;
+         //buffed
+			} else if (buff == true) {
+				playerInstance.enemyTestHP -= ((playerDamage * buffAmount * debuffAmount) / (enemyDefense));
+				isEnemyHit = false;
+         //debuffed
+			} else if (debuff == true) {
+				playerInstance.enemyTestHP -= ((playerDamage * debuffAmount) / (enemyDefense));
+				isEnemyHit = false;
+          //neither buffed nor debuffed
+			} else {
+				playerInstance.enemyTestHP -= (playerDamage / enemyDefense);
+				isEnemyHit = false;
+
+
+			}
+
+		}
+
+	}
+
 }
