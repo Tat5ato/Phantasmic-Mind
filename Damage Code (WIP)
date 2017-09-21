@@ -7,44 +7,51 @@ public class Damage : MonoBehaviour {
 	//may need to change public and private idk whatever becomes convinent
 	private bool buff = false;
 	private bool debuff = false;
-	public double playerDamage = 0;
-	public int enemyDefense = 2;
-	private int buffAmount  = 0;
-	private int debuffAmount = 0;
 	private bool isEnemyHit = true;
+
+	//is double because it was in henry.cs and it looked good
+	public double enemyDefense = 2f;
+
+	//might be irrelevent because already added to henry.cs mabye remove later
+	private double buffAmount  = 0f;
+	private double debuffAmount = 0f;
+
+
+	//calls on the enemyTestHP and attack in henry.cs, can be replaced with a local variable if needed
 	Henry playerInstance;
-	//calls on the enemyTestHP in henry.cs, can be replaced with a local variable if needed
+
 
 	void Update(){
 
-		//calling on enemyTestHpP pt.2
-	
+		//calling on enemyTestHpP and attack pt.2
 		playerInstance = GetComponent<Henry>();
-		if (playerInstance.After == true) {
-			playerDamage = playerInstance.attack;
-		if (isEnemyHit == true) {
-			//buffed and debuffed
-			if (buff && debuff == true) {
-				playerInstance.enemyTestHP -= ((playerDamage * buffAmount * debuffAmount) / (enemyDefense));
-				isEnemyHit = false;
-				//buffed
-			} else if (buff == true) {
-				playerInstance.enemyTestHP -= ((playerDamage * buffAmount) / (enemyDefense));
-				isEnemyHit = false;
-				//debuffed
-			} else if (debuff == true) {
-				playerInstance.enemyTestHP -= ((playerDamage * debuffAmount) / (enemyDefense));
-				isEnemyHit = false;
-				//neither buffed nor debuffed
-			} else {
-				playerInstance.enemyTestHP -= (playerDamage / enemyDefense);
-				isEnemyHit = false;
 
+		//testing if damage has been modified in henry.cs
+		if (playerInstance.AttackChange == true) {
+			
+			if (isEnemyHit == true) {
+				//buffed and debuffed
+				if (buff && debuff == true) {
+					playerInstance.enemyTestHP -= ((playerInstance.attack * buffAmount * debuffAmount) / (enemyDefense));
+					isEnemyHit = false;
+					//buffed
+				} else if (buff == true) {
+					playerInstance.enemyTestHP -= ((playerInstance.attack * buffAmount) / (enemyDefense));
+					isEnemyHit = false;
+					//debuffed
+				} else if (debuff == true) {
+					playerInstance.enemyTestHP -= ((playerInstance.attack * debuffAmount) / (enemyDefense));
+					isEnemyHit = false;
+					//neither buffed nor debuffed
+				} else {
+					playerInstance.enemyTestHP -= (playerInstance.attack / enemyDefense);
+					isEnemyHit = false;
+
+
+				}
 
 			}
-
 		}
-	}
 
 	}
 
