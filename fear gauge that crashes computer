@@ -2,19 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class feargaugecalculator: MonoBehaviour {
+public class Feargaugecalculator: MonoBehaviour {
 	
 	private int i = 1;
-	private float feargaugedisplay = 0;
+	public float feargaugedisplay = 0;
 	private float feargaugemax = 100;
-	private bool partymemberded = false;
+	public bool partymemberded = false;
 	private bool spookedaway = false;
 	private string fearlevel = "1";
-	private float antispook = 0;
+	public float antispook = 0;
 	private float spookerded = 0;
 	private float spookstepcount = 1;
 	public int enemyspooker = 0;
-	private float enemyspookamount = 1;
 	public bool areaspooker = false;
 	public float feargauge = 100f;
 	Henry playerInstance;
@@ -67,11 +66,11 @@ public class feargaugecalculator: MonoBehaviour {
 		//-------------------------------
 		//sets the amount of fear you gain from either normal enemies or bosses
 		if (enemyspooker == 0) {
-			enemyspookamount = 0;
+			feargauge = feargauge
 		} else if (enemyspooker == 1) {
-			enemyspookamount = 5;
+			feargauge -= 5
 		} else if (enemyspooker == 2) {
-			enemyspookamount = 10;
+			feargauge -= 10
 		}
 		//--------------------------------
 		//Running away from fights is bad
