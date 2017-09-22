@@ -1,0 +1,123 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class feargaugecalculator: MonoBehaviour {
+	
+	private int i = 1;
+	private float feargaugedisplay = 0;
+	private float feargaugemax = 100;
+	private bool partymemberded = false;
+	private bool spookedaway = false;
+	private string fearlevel = "1";
+	private float antispook = 0;
+	private float spookerded = 0;
+	private float spookstepcount = 1;
+	public int enemyspooker = 0;
+	private float enemyspookamount = 1;
+	public bool areaspooker = false;
+	public float feargauge = 100f;
+	Henry playerInstance;
+
+
+
+	void Update () {
+		playerInstance = GetComponent<Henry> ();
+		//--------------------------------
+		//more fear capacity per level
+		switch (fearlevel) {
+		case "1":
+			feargaugemax = 100;
+			feargauge *= 1.3f;
+			break;
+		case "2":
+			feargaugemax = 200;
+			feargauge *= 1.3f;
+			break;
+		case "3":
+			feargaugemax = 250;
+			feargauge *= 1.3f;
+			break;
+		case "4":
+			feargaugemax = 270;
+			feargauge *= 1.3f;
+			break;
+		case "5":
+			feargaugemax = 300;
+			feargauge *= 1.3f;
+			break;
+		case "6":
+			feargaugemax = 310;
+			feargauge *= 1.3f;
+			break;
+		}
+		//-------------------------------
+		//fear can not go above capacity
+		if (feargauge > feargaugemax) {
+			feargauge = feargaugemax;
+		}
+		//-------------------------------
+		//display for the fear as a float
+		for (int i = 0; i < 2; i++)
+		{
+			feargaugedisplay = feargaugemax - feargauge;
+			i = 0;
+		}
+		//death slowly - fear increasing factors
+		//-------------------------------
+		//sets the amount of fear you gain from either normal enemies or bosses
+		if (enemyspooker == 0) {
+			enemyspookamount = 0;
+		} else if (enemyspooker == 1) {
+			enemyspookamount = 5;
+		} else if (enemyspooker == 2) {
+			enemyspookamount = 10;
+		}
+		//--------------------------------
+		//Running away from fights is bad
+		if (spookedaway == true) {
+			feargauge -= 15;
+			spookedaway = false;
+		}
+		//--------------------------------
+		//Afraid of the unknown
+		if (areaspooker == true) {
+			feargauge -= 10;
+			areaspooker = false;
+		}
+		//--------------------------------
+		//save your friends or else
+		if (partymemberded == true) {
+			feargauge -= 15;
+			partymemberded = false;
+		}
+		//--------------------------------
+		//spookystepcount
+		//come back to this
+		//--------------------------------
+		//saving graces - fear decreasing factors
+		//--------------------------------
+		//facing fears 1-normal enemy 2-biggo bosso
+		if (spookerded == 1) {
+			feargauge += 1;
+			spookerded = 0;
+		}
+		if (spookerded == 2) {
+			feargauge += 15;
+			spookerded = 0;
+		}
+		//--------------------------------
+		//antidepressants and alcohol are good for you
+		if (antispook == 1) {
+			feargauge += 10;
+			antispook = 0;
+		}
+		if (antispook == 2) {
+			feargauge += 15;
+			antispook = 0;
+		}
+		//---------------------------------
+				
+	}
+}
+
