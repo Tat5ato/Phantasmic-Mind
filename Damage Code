@@ -14,10 +14,6 @@ public class Damage : MonoBehaviour {
 
 		//calling on enemyTestHpP and attack pt.2
 		playerInstance = GetComponent<Henry>();
-
-		//testing if damage has been modified in henry.cs
-		if (playerInstance.AttackChange == true) {
-
 			if (isEnemyHit == true) {
 					playerInstance.enemyTestHP -= (playerInstance.attack / enemyDefense);
 					isEnemyHit = false;
