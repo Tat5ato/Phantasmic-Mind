@@ -2,113 +2,149 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Feargaugecalculator: MonoBehaviour {
+public class fearGaugeCalculator: MonoBehaviour {
 
+	private bool alcoholFMincd = false;
+	private bool antiDepressionFMincd = false;
 	public bool awoken = false;
-	public bool spookedrealbad = false;
-	private bool fearlevelchange = false;
-	public float feargaugedisplay = 0;
-	public float feargaugemax = 100;
-	public bool partymemberded = false;
-	private bool spookedaway = false;
-	private string fearlevel = "1";
-	public float antispook = 0;
-	private float spookerded = 0;
-	private float spookstepcount = 1;
-	public int enemyspooker = 0;
-	public bool areaspooker = false;
-	public float feargauge = 100f;
+	public bool fearGaugeForMathFull = false;
+	private bool fearUpgradeLevelChange = false;
+	public float fearGaugeForMathDisplay = 0;
+	public float fearGaugeForMathMax = 100;
+	public bool partyMemberDied = false;
+	private bool ranAway = false;
+	private string fearUpgradeLevel = "1";
+	public float antiDepressionFMin = 0;
+	public float alcoholFMin = 0;
+	private float killedEnemy = 0;
+	private float fearStepCounter = 1;
+	public int newEnemyFear = 0;
+	public bool newAreaFear = false;
+	public float fearGaugeForMath = 100f;
 	Henry playerInstance;
+
+	//https://docs.unity3d.com/ScriptReference/MonoBehaviour.StartCoroutine.html pretty cool
+	IEnumerator acchecker ()
+	{
+		if (playerInstance.alcohol == true) {
+			alcoholFMin = 1;
+			alcoholFMincd = true;
+			yield return new WaitUntil (() => playerInstance.alcohol == false);
+			alcoholFMincd = false;
+		}
+	}
+
+	IEnumerator adchecker ()
+	{
+		if (playerInstance.antiDepression == true) {
+			antiDepressionFMin = 1;
+			antiDepressionFMincd = true;
+			yield return new WaitUntil (() => playerInstance.antiDepression == false);
+			antiDepressionFMincd = false;
+		}
+
+	}
 
 	void Update () {
 		playerInstance = GetComponent<Henry> ();
 		//--------------------------------
+		if (alcoholFMincd == false) {
+			if (playerInstance.alcohol == true) {
+				StartCoroutine (acchecker ());
+			}
+		}
+		if (antiDepressionFMincd == false) {
+			if (playerInstance.antiDepression == true) {
+				StartCoroutine (adchecker ());
+			}
+		}
+		//--------------------------------
 		//ded checker
-		if (feargauge < 1) {
-			spookedrealbad = true;
-			feargaugedisplay = feargaugemax;
+		if (fearGaugeForMath < 1) {
+			fearGaugeForMathFull = true;
+			fearGaugeForMathDisplay = fearGaugeForMathMax;
 		}
 		//--------------------------------
 		//more fear capacity per level
-		if (fearlevelchange == true) {
-			switch (fearlevel) {
+		if (fearUpgradeLevelChange == true) {
+			switch (fearUpgradeLevel) {
 			case "1":
-				feargaugemax = 100;
-				feargauge *= 1.3f;
-				feargaugedisplay = feargaugemax - feargauge;
+				fearGaugeForMathMax = 100;
+				fearGaugeForMath *= 1.3f;
+				fearGaugeForMathDisplay = fearGaugeForMathMax - fearGaugeForMath;
 				break;
 			case "2":
-				feargaugemax = 200;
-				feargauge *= 1.3f;
-				feargaugedisplay = feargaugemax - feargauge;
+				fearGaugeForMathMax = 200;
+				fearGaugeForMath *= 1.3f;
+				fearGaugeForMathDisplay = fearGaugeForMathMax - fearGaugeForMath;
 				break;
 			case "3":
-				feargaugemax = 250;
-				feargauge *= 1.3f;
-				feargaugedisplay = feargaugemax - feargauge;
+				fearGaugeForMathMax = 250;
+				fearGaugeForMath *= 1.3f;
+				fearGaugeForMathDisplay = fearGaugeForMathMax - fearGaugeForMath;
 				break;
 			case "4":
-				feargaugemax = 270;
-				feargauge *= 1.3f;
-				feargaugedisplay = feargaugemax - feargauge;
+				fearGaugeForMathMax = 270;
+				fearGaugeForMath *= 1.3f;
+				fearGaugeForMathDisplay = fearGaugeForMathMax - fearGaugeForMath;
 				break;
 			case "5":
-				feargaugemax = 300;
-				feargauge *= 1.3f;
-				feargaugedisplay = feargaugemax - feargauge;
+				fearGaugeForMathMax = 300;
+				fearGaugeForMath *= 1.3f;
+				fearGaugeForMathDisplay = fearGaugeForMathMax - fearGaugeForMath;
 				break;
 			case "6":
-				feargaugemax = 310;
-				feargauge *= 1.3f;
-				feargaugedisplay = feargaugemax - feargauge;
+				fearGaugeForMathMax = 310;
+				fearGaugeForMath *= 1.3f;
+				fearGaugeForMathDisplay = fearGaugeForMathMax - fearGaugeForMath;
 				break;
 			}
 		}
 		//-------------------------------
 		//fear can not go above capacity
-		if (feargauge > feargaugemax) {
-			feargauge = feargaugemax;
+		if (fearGaugeForMath > fearGaugeForMathMax) {
+			fearGaugeForMath = fearGaugeForMathMax;
 		}
 		//-------------------------------
 		//fear can be toooooo bad
-		if (feargaugedisplay > feargaugemax) {
-			feargaugedisplay = feargaugemax;
+		if (fearGaugeForMathDisplay > fearGaugeForMathMax) {
+			fearGaugeForMathDisplay = fearGaugeForMathMax;
 		}
-		//this is added at the end of every time feargauge or feargauge max is calculated becaue my for (i) statement instantly crashes unity
+		//this is added at the end of every time fearGaugeForMath or fearGaugeForMath max is calculated becaue my for (i) statement instantly crashes unity
 		//-------------------------------
 		//death slowly - fear increasing factors
 		//-------------------------------
 		//sets the amount of fear you gain from either normal enemies or bosses
-		if (spookedrealbad == false) {
-			if (enemyspooker == 0) {
-				feargauge = feargauge;
-				feargaugedisplay = feargaugemax - feargauge;
-			} else if (enemyspooker == 1) {
-				feargauge -= 5;
-				feargaugedisplay = feargaugemax - feargauge;
-			} else if (enemyspooker == 2) {
-				feargauge -= 10;
-				feargaugedisplay = feargaugemax - feargauge;
+		if (fearGaugeForMathFull == false) {
+			if (newEnemyFear == 0) {
+				fearGaugeForMath = fearGaugeForMath;
+				fearGaugeForMathDisplay = fearGaugeForMathMax - fearGaugeForMath;
+			} else if (newEnemyFear == 1) {
+				fearGaugeForMath -= 5;
+				fearGaugeForMathDisplay = fearGaugeForMathMax - fearGaugeForMath;
+			} else if (newEnemyFear == 2) {
+				fearGaugeForMath -= 10;
+				fearGaugeForMathDisplay = fearGaugeForMathMax - fearGaugeForMath;
 			}
 			//--------------------------------
 			//Running away from fights is bad
-			if (spookedaway == true) {
-				feargauge -= 15;
-				spookedaway = false;
+			if (ranAway == true) {
+				fearGaugeForMath -= 15;
+				ranAway = false;
 			}
 			//--------------------------------
 			//Afraid of the unknown
-			if (areaspooker == true) {
-				feargauge -= 10;
-				areaspooker = false;
-				feargaugedisplay = feargaugemax - feargauge;
+			if (newAreaFear == true) {
+				fearGaugeForMath -= 10;
+				newAreaFear = false;
+				fearGaugeForMathDisplay = fearGaugeForMathMax - fearGaugeForMath;
 			}
 			//--------------------------------
 			//save your friends or else
-			if (partymemberded == true) {
-				feargauge -= 15;
-				partymemberded = false;
-				feargaugedisplay = feargaugemax - feargauge;
+			if (partyMemberDied == true) {
+				fearGaugeForMath -= 15;
+				partyMemberDied = false;
+				fearGaugeForMathDisplay = fearGaugeForMathMax - fearGaugeForMath;
 			}
 			//--------------------------------
 			//spookystepcount
@@ -117,34 +153,34 @@ public class Feargaugecalculator: MonoBehaviour {
 			//saving graces - fear decreasing factors
 			//--------------------------------
 			//facing fears 1-normal enemy 2-biggo bosso
-			if (spookerded == 1) {
-				feargauge += 1;
-				spookerded = 0;
-				feargaugedisplay = feargaugemax - feargauge;
+			if (killedEnemy == 1) {
+				fearGaugeForMath += 1;
+				killedEnemy = 0;
+				fearGaugeForMathDisplay = fearGaugeForMathMax - fearGaugeForMath;
 			}
-			if (spookerded == 2) {
-				feargauge += 15;
-				spookerded = 0;
-				feargaugedisplay = feargaugemax - feargauge;
+			if (killedEnemy == 2) {
+				fearGaugeForMath += 15;
+				killedEnemy = 0;
+				fearGaugeForMathDisplay = fearGaugeForMathMax - fearGaugeForMath;
 			}
 			//--------------------------------
 			//antidepressants and alcohol are good for you
-			if (antispook == 1) {
-				feargauge += 10;
-				antispook = 0;
-				feargaugedisplay = feargaugemax - feargauge;
+			if (antiDepressionFMin == 1) {
+				fearGaugeForMath += 10;
+				antiDepressionFMin = 0;
+				fearGaugeForMathDisplay = fearGaugeForMathMax - fearGaugeForMath;
 			}
-			if (antispook == 2) {
-				feargauge += 15;
-				antispook = 0;
-				feargaugedisplay = feargaugemax - feargauge;
+			if (alcoholFMin== 1) {
+				fearGaugeForMath += 15;
+				alcoholFMin = 0;
+				fearGaugeForMathDisplay = fearGaugeForMathMax - fearGaugeForMath;
 			}
 		}
 		//---------------------------------
 		//waking up from ash and dust
 		if (awoken == true) {
-			feargauge = feargaugemax;
-			spookedrealbad = false;
+			fearGaugeForMath = fearGaugeForMathMax;
+			fearGaugeForMathFull = false;
 			awoken = false;
 		}
 	}
