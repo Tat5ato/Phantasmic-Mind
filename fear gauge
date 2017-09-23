@@ -1,0 +1,151 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Feargaugecalculator: MonoBehaviour {
+
+	public bool awoken = false;
+	public bool spookedrealbad = false;
+	private bool fearlevelchange = false;
+	public float feargaugedisplay = 0;
+	public float feargaugemax = 100;
+	public bool partymemberded = false;
+	private bool spookedaway = false;
+	private string fearlevel = "1";
+	public float antispook = 0;
+	private float spookerded = 0;
+	private float spookstepcount = 1;
+	public int enemyspooker = 0;
+	public bool areaspooker = false;
+	public float feargauge = 100f;
+	Henry playerInstance;
+
+	void Update () {
+		playerInstance = GetComponent<Henry> ();
+		//--------------------------------
+		//ded checker
+		if (feargauge < 1) {
+			spookedrealbad = true;
+			feargaugedisplay = feargaugemax;
+		}
+		//--------------------------------
+		//more fear capacity per level
+		if (fearlevelchange == true) {
+			switch (fearlevel) {
+			case "1":
+				feargaugemax = 100;
+				feargauge *= 1.3f;
+				feargaugedisplay = feargaugemax - feargauge;
+				break;
+			case "2":
+				feargaugemax = 200;
+				feargauge *= 1.3f;
+				feargaugedisplay = feargaugemax - feargauge;
+				break;
+			case "3":
+				feargaugemax = 250;
+				feargauge *= 1.3f;
+				feargaugedisplay = feargaugemax - feargauge;
+				break;
+			case "4":
+				feargaugemax = 270;
+				feargauge *= 1.3f;
+				feargaugedisplay = feargaugemax - feargauge;
+				break;
+			case "5":
+				feargaugemax = 300;
+				feargauge *= 1.3f;
+				feargaugedisplay = feargaugemax - feargauge;
+				break;
+			case "6":
+				feargaugemax = 310;
+				feargauge *= 1.3f;
+				feargaugedisplay = feargaugemax - feargauge;
+				break;
+			}
+		}
+		//-------------------------------
+		//fear can not go above capacity
+		if (feargauge > feargaugemax) {
+			feargauge = feargaugemax;
+		}
+		//-------------------------------
+		//fear can be toooooo bad
+		if (feargaugedisplay > feargaugemax) {
+			feargaugedisplay = feargaugemax;
+		}
+		//this is added at the end of every time feargauge or feargauge max is calculated becaue my for (i) statement instantly crashes unity
+		//-------------------------------
+		//death slowly - fear increasing factors
+		//-------------------------------
+		//sets the amount of fear you gain from either normal enemies or bosses
+		if (spookedrealbad == false) {
+			if (enemyspooker == 0) {
+				feargauge = feargauge;
+				feargaugedisplay = feargaugemax - feargauge;
+			} else if (enemyspooker == 1) {
+				feargauge -= 5;
+				feargaugedisplay = feargaugemax - feargauge;
+			} else if (enemyspooker == 2) {
+				feargauge -= 10;
+				feargaugedisplay = feargaugemax - feargauge;
+			}
+			//--------------------------------
+			//Running away from fights is bad
+			if (spookedaway == true) {
+				feargauge -= 15;
+				spookedaway = false;
+			}
+			//--------------------------------
+			//Afraid of the unknown
+			if (areaspooker == true) {
+				feargauge -= 10;
+				areaspooker = false;
+				feargaugedisplay = feargaugemax - feargauge;
+			}
+			//--------------------------------
+			//save your friends or else
+			if (partymemberded == true) {
+				feargauge -= 15;
+				partymemberded = false;
+				feargaugedisplay = feargaugemax - feargauge;
+			}
+			//--------------------------------
+			//spookystepcount
+			//come back to this
+			//--------------------------------
+			//saving graces - fear decreasing factors
+			//--------------------------------
+			//facing fears 1-normal enemy 2-biggo bosso
+			if (spookerded == 1) {
+				feargauge += 1;
+				spookerded = 0;
+				feargaugedisplay = feargaugemax - feargauge;
+			}
+			if (spookerded == 2) {
+				feargauge += 15;
+				spookerded = 0;
+				feargaugedisplay = feargaugemax - feargauge;
+			}
+			//--------------------------------
+			//antidepressants and alcohol are good for you
+			if (antispook == 1) {
+				feargauge += 10;
+				antispook = 0;
+				feargaugedisplay = feargaugemax - feargauge;
+			}
+			if (antispook == 2) {
+				feargauge += 15;
+				antispook = 0;
+				feargaugedisplay = feargaugemax - feargauge;
+			}
+		}
+		//---------------------------------
+		//waking up from ash and dust
+		if (awoken == true) {
+			feargauge = feargaugemax;
+			spookedrealbad = false;
+			awoken = false;
+		}
+	}
+}
