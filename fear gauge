@@ -7,20 +7,20 @@ public class fearGaugeCalculator: MonoBehaviour {
 	private bool alcoholFMincd = false;
 	private bool antiDepressionFMincd = false;
 	public bool awoken = false;
-	public bool fearGaugeForMathFull = false;
+	private bool fearGaugeForMathFull = false;
 	private bool fearUpgradeLevelChange = false;
 	public float fearGaugeForMathDisplay = 0;
-	public float fearGaugeForMathMax = 100;
+	private float fearGaugeForMathMax = 100;
 	public bool partyMemberDied = false;
-	private bool ranAway = false;
+	public bool ranAway = false;
 	private string fearUpgradeLevel = "1";
-	public float antiDepressionFMin = 0;
-	public float alcoholFMin = 0;
+	private float antiDepressionFMin = 0;
+	private float alcoholFMin = 0;
 	private float killedEnemy = 0;
 	private float fearStepCounter = 1;
-	public int newEnemyFear = 0;
+	private int newEnemyFear = 0;
 	public bool newAreaFear = false;
-	public float fearGaugeForMath = 100f;
+	private float fearGaugeForMath = 100f;
 	Henry playerInstance;
 
 	//https://docs.unity3d.com/ScriptReference/MonoBehaviour.StartCoroutine.html pretty cool
