@@ -20,3 +20,6 @@ Create a new file and when you're scrolling down to commit it hit the check mark
 # Please visit these sites for more help
 https://unity3d.com/learn/tutorials/projects/2d-roguelike-tutorial
 https://app.moqups.com/Tat5ato/4PQMoOPGXA/view
+
+# This is the link for our our calender to keep up to date with deadlines
+https://calendar.google.com
