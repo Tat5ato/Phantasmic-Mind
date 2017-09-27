@@ -1,37 +1,47 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-					//about as extra unneccecary long as it gets
+//all way longer and more drawn out then it needs to be but im bad
 public class fearGaugeCalculator: MonoBehaviour {
 
+	private bool spookyFearCD = false;
+	public bool inSpookyArea = false;
 	private bool alcoholFMincd = false;
 	private bool antiDepressionFMincd = false;
 	public bool awoken = false;
-	private bool fearGaugeForMathFull = false;
+	private bool Insane = false;
 	private bool fearUpgradeLevelChange = false;
 	public float fearGaugeForMathDisplay = 0;
 	private float fearGaugeForMathMax = 100;
 	public bool partyMemberDied = false;
-	public bool ranAway = false;
+	private bool ranAway = false;
 	private string fearUpgradeLevel = "1";
 	private float antiDepressionFMin = 0;
-	private float alcoholFMin = 0;
 	private float killedEnemy = 0;
-	private float fearStepCounter = 1;
-	private int newEnemyFear = 0;
+	public int newEnemyFear = 0;
 	public bool newAreaFear = false;
 	private float fearGaugeForMath = 100f;
 	Henry playerInstance;
+	PlayerMovement playerInstanceTwo;
 
 	//https://docs.unity3d.com/ScriptReference/MonoBehaviour.StartCoroutine.html pretty cool
-	IEnumerator acchecker ()
+
+	IEnumerator spookyAreaFear ()
 	{
-		if (playerInstance.alcohol == true) {
-			alcoholFMin = 1;
-			alcoholFMincd = true;
-			yield return new WaitUntil (() => playerInstance.alcohol == false);
-			alcoholFMincd = false;
-		}
+		fearGaugeForMath -= 1;
+		fearGaugeForMathDisplay = fearGaugeForMathMax - fearGaugeForMath;
+		spookyFearCD = true;
+		yield return new WaitForSecondsRealtime (10);
+		spookyFearCD = false;
+	}
+		
+	IEnumerator passivefear ()
+	{
+		fearGaugeForMath -= 1;
+		fearGaugeForMathDisplay = fearGaugeForMathMax - fearGaugeForMath;
+		alcoholFMincd = true;
+		yield return new WaitForSecondsRealtime (2);
+		alcoholFMincd = false;
 	}
 
 	IEnumerator adchecker ()
@@ -46,13 +56,10 @@ public class fearGaugeCalculator: MonoBehaviour {
 	}
 
 	void Update () {
+		playerInstanceTwo = GetComponent<PlayerMovement> ();
 		playerInstance = GetComponent<Henry> ();
 		//--------------------------------
-		if (alcoholFMincd == false) {
-			if (playerInstance.alcohol == true) {
-				StartCoroutine (acchecker ());
-			}
-		}
+		//checking if antidepression is currently in use, then updates code to try to reduce fear if not insane
 		if (antiDepressionFMincd == false) {
 			if (playerInstance.antiDepression == true) {
 				StartCoroutine (adchecker ());
@@ -61,7 +68,7 @@ public class fearGaugeCalculator: MonoBehaviour {
 		//--------------------------------
 		//ded checker
 		if (fearGaugeForMath < 1) {
-			fearGaugeForMathFull = true;
+			Insane = true;
 			fearGaugeForMathDisplay = fearGaugeForMathMax;
 		}
 		//--------------------------------
@@ -108,79 +115,81 @@ public class fearGaugeCalculator: MonoBehaviour {
 		//-------------------------------
 		//fear can be toooooo bad
 		if (fearGaugeForMathDisplay > fearGaugeForMathMax) {
-			fearGaugeForMathDisplay = fearGaugeForMathMax;
+				fearGaugeForMathDisplay = fearGaugeForMathMax;
 		}
-		//this is added at the end of every time fearGaugeForMath or fearGaugeForMath max is calculated becaue my for (i) statement instantly crashes unity
 		//-------------------------------
-		//death slowly - fear increasing factors
+		//fear increasing factors
 		//-------------------------------
-		//sets the amount of fear you gain from either normal enemies or bosses
-		if (fearGaugeForMathFull == false) {
-			if (newEnemyFear == 0) {
-				fearGaugeForMath = fearGaugeForMath;
-				fearGaugeForMathDisplay = fearGaugeForMathMax - fearGaugeForMath;
-			} else if (newEnemyFear == 1) {
-				fearGaugeForMath -= 5;
-				fearGaugeForMathDisplay = fearGaugeForMathMax - fearGaugeForMath;
-			} else if (newEnemyFear == 2) {
-				fearGaugeForMath -= 10;
-				fearGaugeForMathDisplay = fearGaugeForMathMax - fearGaugeForMath;
+		//checking if you are already insane, only certain things like waking up fix this
+		if (Insane == false) {
+			//sets the amount of fear you gain from either normal enemies or bosses
+				if (newEnemyFear == 1) {
+					fearGaugeForMath -= 5;
+					fearGaugeForMathDisplay = fearGaugeForMathMax - fearGaugeForMath;
+				} else if (newEnemyFear == 2) {
+					fearGaugeForMath -= 10;
+					fearGaugeForMathDisplay = fearGaugeForMathMax - fearGaugeForMath;
+				}
+				//--------------------------------
+				//Running away from fights is bad
+				if (ranAway == true) {
+					fearGaugeForMath -= 15;
+					ranAway = false;
+				}
+				//--------------------------------
+				//spooky area is bad
+			if (inSpookyArea == true) {
+				if (spookyFearCD == false) {
+					StartCoroutine (spookyAreaFear ());
+				}
 			}
-			//--------------------------------
-			//Running away from fights is bad
-			if (ranAway == true) {
-				fearGaugeForMath -= 15;
-				ranAway = false;
+				//Afraid of the unknown
+				if (newAreaFear == true) {
+					fearGaugeForMath -= 10;
+					newAreaFear = false;
+					fearGaugeForMathDisplay = fearGaugeForMathMax - fearGaugeForMath;
+				}
+				//--------------------------------
+				//save your friends or else
+				if (partyMemberDied == true) {
+					fearGaugeForMath -= 15;
+					partyMemberDied = false;
+					fearGaugeForMathDisplay = fearGaugeForMathMax - fearGaugeForMath;
+				}
+				//--------------------------------
+				//fear decreasing factors
+				//--------------------------------
+				//facing fears 1-normal enemy 2-biggo bosso
+				if (killedEnemy == 1) {
+					fearGaugeForMath += 1;
+					killedEnemy = 0;
+					fearGaugeForMathDisplay = fearGaugeForMathMax - fearGaugeForMath;
+				}
+				if (killedEnemy == 2) {
+					fearGaugeForMath += 15;
+					killedEnemy = 0;
+					fearGaugeForMathDisplay = fearGaugeForMathMax - fearGaugeForMath;
+				}
+				//--------------------------------
+				//antidepressants and alcohol are good for you
+				if (antiDepressionFMin == 1) {
+					fearGaugeForMathDisplay *= 0.85f;
+					antiDepressionFMin = 0;
+					fearGaugeForMathDisplay = Mathf.Round (fearGaugeForMathDisplay );
+					fearGaugeForMath = fearGaugeForMathMax - fearGaugeForMathDisplay;
+					
+				}
+				if (playerInstance.alcohol == false) {
+					if (alcoholFMincd == false) {
+						StartCoroutine (passivefear ());
+					}
+				}
 			}
-			//--------------------------------
-			//Afraid of the unknown
-			if (newAreaFear == true) {
-				fearGaugeForMath -= 10;
-				newAreaFear = false;
-				fearGaugeForMathDisplay = fearGaugeForMathMax - fearGaugeForMath;
-			}
-			//--------------------------------
-			//save your friends or else
-			if (partyMemberDied == true) {
-				fearGaugeForMath -= 15;
-				partyMemberDied = false;
-				fearGaugeForMathDisplay = fearGaugeForMathMax - fearGaugeForMath;
-			}
-			//--------------------------------
-			//spookystepcount
-			//come back to this
-			//--------------------------------
-			//saving graces - fear decreasing factors
-			//--------------------------------
-			//facing fears 1-normal enemy 2-biggo bosso
-			if (killedEnemy == 1) {
-				fearGaugeForMath += 1;
-				killedEnemy = 0;
-				fearGaugeForMathDisplay = fearGaugeForMathMax - fearGaugeForMath;
-			}
-			if (killedEnemy == 2) {
-				fearGaugeForMath += 15;
-				killedEnemy = 0;
-				fearGaugeForMathDisplay = fearGaugeForMathMax - fearGaugeForMath;
-			}
-			//--------------------------------
-			//antidepressants and alcohol are good for you
-			if (antiDepressionFMin == 1) {
-				fearGaugeForMath += 10;
-				antiDepressionFMin = 0;
-				fearGaugeForMathDisplay = fearGaugeForMathMax - fearGaugeForMath;
-			}
-			if (alcoholFMin== 1) {
-				fearGaugeForMath += 15;
-				alcoholFMin = 0;
-				fearGaugeForMathDisplay = fearGaugeForMathMax - fearGaugeForMath;
-			}
-		}
-		//---------------------------------
-		//waking up from ash and dust
+			//---------------------------------
+			//waking up
 		if (awoken == true) {
 			fearGaugeForMath = fearGaugeForMathMax;
-			fearGaugeForMathFull = false;
+			Insane = false;
 			awoken = false;
 		}
 	}
