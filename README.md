@@ -5,6 +5,10 @@ Tasks would be things such as "we need a code for this actions" or "we need a mo
 Complications would be errors in the code or if someone disagrees with the looks of a particular model and we need someone to fix it
 To fix the issues that arises in the project, it'll be fix via the pull requests
 Note that only Ryan and Tatsuya can assign an issue, however if anyone have an issue, you can discuss it with one of the two
+# Putting Works into Proper Folders
+To put code into folders edit the directory of the file, make sure to type it like so:  Phantasmic-Mind/Code/... 
+What ever it may be
+With art it's a tad more tricky just tell us when you add it too the git then we will upload to the folder
 
 # Pull Requests
 
