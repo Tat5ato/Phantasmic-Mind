@@ -8,8 +8,8 @@ public class ItemConsumption : MonoBehaviour {
 	public GameObject alcohol = GameObject.FindGameObjectWithTag("alcohol");
 	public GameObject antiDepression = GameObject.FindGameObjectWithTag("antiDepression");
 	//see if in inventory from Item Collection script
-	public bool alcoholCheck;
-	public bool antiDepressionCheck;
+	public bool alcoholCheck = false;
+	public bool antiDepressionCheck = false;
 	//see if gui button is clikced to be used from HUD script
 	public bool alcoholUse = false;
 	public bool antiDepressionUse = false;
