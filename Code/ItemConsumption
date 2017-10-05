@@ -11,8 +11,8 @@ public class ItemConsumption : MonoBehaviour {
 	public bool alcoholCheck;
 	public bool antiDepressionCheck;
 	//see if gui button is clikced to be used from HUD script
-	public bool alcoholUse;
-	public bool antiDepressionUse;
+	public bool alcoholUse = false;
+	public bool antiDepressionUse = false;
 	//gui button
 	public bool alcoholGUI;
 	public bool antiDepressionGUI;
