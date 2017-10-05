@@ -1,0 +1,47 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ItemConsumption : MonoBehaviour {
+
+	
+	public GameObject alcohol = GameObject.FindGameObjectWithTag("alcohol");
+	public GameObject antiDepression = GameObject.FindGameObjectWithTag("antiDepression");
+	//see if in inventory from Item Collection script
+	public bool alcoholCheck;
+	public bool antiDepressionCheck;
+	//see if gui button is clikced to be used from HUD script
+	public bool alcoholUse;
+	public bool antiDepressionUse;
+	//gui button
+	public bool alcoholGUI;
+	public bool antiDepressionGUI;
+	
+	// Use this for initialization
+	void Start () {
+		GameObject Henry = GameObject.Find ("Henry");
+		fearGaugeCalculator FearGuageCalculator = Henry.GetComponents<fearGaugeCalculator> ();
+		Henry henry = Henry.GetComponents<Henry> ();
+
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		if (alcoholCheck) {
+			alcoholGUI = true;
+			//button press alcoholUse = True (for HUD people)
+		}
+		if (antiDepressionCheck) {
+			antiDepressionGUI = true;
+			//button press antiDepressionUse = True (for HUD people)
+		}
+		
+		//returned from HUD script
+		if(alcoholUse){
+			henry.alcohol = true;
+		}
+		if(antiDepressionUse){
+			henry.antiDepression = true;
+		}
+	}
+}
