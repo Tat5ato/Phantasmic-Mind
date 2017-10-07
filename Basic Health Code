@@ -1,0 +1,18 @@
+using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
+
+public class Health : MonoBehaviour {
+	public float MaxHp = 250;
+	public float Hp;
+	public Image HealthBar;
+	void Start(){
+		Hp = 250;
+	}
+	void Update() { 
+		HealthBar.fillAmount = Hp / MaxHp;
+			}
+ public void TakeDamage(int amount) { 
+		Hp -= amount;
+	}
+}
