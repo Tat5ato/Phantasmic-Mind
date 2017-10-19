@@ -1,6 +1,6 @@
 //displays ui (inventory) on henry
 
-//add change alcoholUse and antiDepressionUse in Henry.cs to true when used
+//add change NectarUse and antiDepressionUse in Henry.cs to true when used
 
 //allows item access on ui (inventory)
 
@@ -19,10 +19,10 @@ public class HUDIcons : MonoBehaviour {
 	public Texture inventorySlot;
 	public Texture[] Items = new Texture[6];
 	public int[] ItemQuatity = new int[6];
-	public bool ThereIsAchohol;
+	public bool ThereIsNectar;
 
-	public float alchoholx;
-	public float alchoholy;
+	public float Nectarx;
+	public float Nectary;
 	public int I;
 
 	public Font NewFont;
@@ -49,7 +49,7 @@ public class HUDIcons : MonoBehaviour {
 	
 
 		//CONSUMING ALCHOHOLOR NECTAR
-		if (ThereIsAchohol) {
+		if (ThereIsNectar) {
 			if (GUI.Button (new Rect (((Screen.width / 2) - ((I - 2) * 100)) + (inventorySlot.width / 4), (Screen.height - 75) + (inventorySlot.height / 4), 50, 50), Items [I])) {
 				Debug.Log ("You are drunk!");
 				ItemQuatity [I]--;
@@ -78,8 +78,8 @@ public class HUDIcons : MonoBehaviour {
 				} else {
 					ThereIsAchohol = true;
 					I = i;
-					alchoholx = ((Screen.width / 2) - ((I - 2) * 100)) + (inventorySlot.width / 2);
-					alchoholy = (Screen.height - 75) + (inventorySlot.height / 2);
+					Nectarx = ((Screen.width / 2) - ((I - 2) * 100)) + (inventorySlot.width / 2);
+					Nectary = (Screen.height - 75) + (inventorySlot.height / 2);
 					GUI.DrawTexture (new Rect (((Screen.width / 2) - ((i - 2) * 100)) + (inventorySlot.width / 4), (Screen.height - 75) + (inventorySlot.height / 4), 50, 50), Items [i], ScaleMode.StretchToFill, true, 10.0F);
 				}
 			}
