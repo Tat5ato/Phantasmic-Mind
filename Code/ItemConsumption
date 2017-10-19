@@ -1,3 +1,11 @@
+//base for controlling if item is consumed
+//takes input from InGame Inventory with working nectar consumption to give output to Henry.cs
+//output to Henry.cs chganges value used by fear guage
+//start includes calls to scripts (SCRIPT NAMES HAVE TO MATCH)
+
+
+
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
