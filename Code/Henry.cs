@@ -1,3 +1,13 @@
+//all public vars to be changed for game.
+
+//call real enemy HP to enemyTestHP in update
+
+//this script is to be put on Henry to act as the main value holder
+
+
+
+
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
