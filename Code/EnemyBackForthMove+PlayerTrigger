@@ -78,4 +78,19 @@ public class Movement : MonoBehaviour {
 		var moveVector = ((Player.transform.position - this.transform.position).normalized) * _moveSpeed;
 		this.transform.position = this.transform.position + moveVector;
 	}
+	bool CheckDistanceToOrigin()
+	{
+		var DistanceToOrigin = Player.transform.position.magnitude;
+		if (EnemyRadius <= DistanceToOrigin) 
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 }
+
+	
+
