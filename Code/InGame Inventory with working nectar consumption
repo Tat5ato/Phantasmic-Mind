@@ -4,6 +4,7 @@
 
 //allows item access on ui (inventory)
 
+//start includes calls to scripts (SCRIPT NAMES HAVE TO MATCH)
 
 using System.Collections;
 using System.Collections.Generic;
