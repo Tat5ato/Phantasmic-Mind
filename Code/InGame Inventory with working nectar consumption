@@ -57,6 +57,7 @@ public class HUDIcons : MonoBehaviour {
 		for (int i = 0; i < 6; i++) {
 			GUI.DrawTexture (new Rect ((Screen.width /2)- ((i-2)*100),Screen.height - 75, 75, 75), inventorySlot, ScaleMode.StretchToFill, true, 10.0F);
          
+	 
 		}
 		//SECTION END
 
