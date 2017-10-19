@@ -13,17 +13,17 @@ using UnityEngine;
 public class ItemConsumption : MonoBehaviour {
 
 	
-	public GameObject alcohol = GameObject.FindGameObjectWithTag("alcohol");
-	public GameObject antiDepression = GameObject.FindGameObjectWithTag("antiDepression");
+	public GameObject nectar = GameObject.FindGameObjectWithTag("nectar");
+	public GameObject medicine = GameObject.FindGameObjectWithTag("medicine");
 	//see if in inventory from Item Collection script
-	public bool alcoholCheck = false;
-	public bool antiDepressionCheck = false;
+	public bool nectarCheck = false;
+	public bool medicineCheck = false;
 	//see if gui button is clikced to be used from HUD script
-	public bool alcoholUse = false;
-	public bool antiDepressionUse = false;
+	public bool nectarUse = false;
+	public bool medicineUse = false;
 	//gui button
-	public bool alcoholGUI;
-	public bool antiDepressionGUI;
+	public bool nectarGUI;
+	public bool medicineGUI;
 	
 	// Use this for initialization
 	void Start () {
@@ -35,21 +35,21 @@ public class ItemConsumption : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (alcoholCheck) {
-			alcoholGUI = true;
-			//button press alcoholUse = True (for HUD people)
+		if (nectarCheck) {
+			nectarGUI = true;
+			//button press nectarUse = True (for HUD people)
 		}
-		if (antiDepressionCheck) {
-			antiDepressionGUI = true;
-			//button press antiDepressionUse = True (for HUD people)
+		if (medicineCheck) {
+			medicineGUI = true;
+			//button press medicineUse = True (for HUD people)
 		}
 		
 		//returned from HUD script
-		if(alcoholUse){
-			henry.alcohol = true;
+		if(nectarUse){
+			henry.nectar = true;
 		}
-		if(antiDepressionUse){
-			henry.antiDepression = true;
+		if(medicineUse){
+			henry.medicine = true;
 		}
 	}
 }
