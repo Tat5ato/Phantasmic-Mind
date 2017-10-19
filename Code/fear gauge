@@ -6,8 +6,8 @@ public class fearGaugeCalculator: MonoBehaviour {
 
 	private bool spookyFearCD = false;
 	public bool inSpookyArea = false;
-	private bool alcoholFMincd = false;
-	private bool antiDepressionFMincd = false;
+	private bool nectarFMincd = false;
+	private bool medicineFMincd = false;
 	public bool awoken = false;
 	private bool Insane = false;
 	private bool fearUpgradeLevelChange = false;
@@ -39,18 +39,18 @@ public class fearGaugeCalculator: MonoBehaviour {
 	{
 		fearGaugeForMath -= 1;
 		fearGaugeForMathDisplay = fearGaugeForMathMax - fearGaugeForMath;
-		alcoholFMincd = true;
+		nectarFMincd = true;
 		yield return new WaitForSecondsRealtime (2);
-		alcoholFMincd = false;
+		nectarFMincd = false;
 	}
 
 	IEnumerator adchecker ()
 	{
 		if (playerInstance.antiDepression == true) {
-			antiDepressionFMin = 1;
-			antiDepressionFMincd = true;
-			yield return new WaitUntil (() => playerInstance.antiDepression == false);
-			antiDepressionFMincd = false;
+			medicineFMin = 1;
+			medicineFMincd = true;
+			yield return new WaitUntil (() => playerInstance.medicine == false);
+			medicineFMincd = false;
 		}
 
 	}
@@ -59,9 +59,9 @@ public class fearGaugeCalculator: MonoBehaviour {
 		playerInstanceTwo = GetComponent<PlayerMovement> ();
 		playerInstance = GetComponent<Henry> ();
 		//--------------------------------
-		//checking if antidepression is currently in use, then updates code to try to reduce fear if not insane
-		if (antiDepressionFMincd == false) {
-			if (playerInstance.antiDepression == true) {
+		//checking if medicine is currently in use, then updates code to try to reduce fear if not insane
+		if (medicineFMincd == false) {
+			if (playerInstance.medicine == true) {
 				StartCoroutine (adchecker ());
 			}
 		}
@@ -171,16 +171,16 @@ public class fearGaugeCalculator: MonoBehaviour {
 					fearGaugeForMathDisplay = fearGaugeForMathMax - fearGaugeForMath;
 				}
 				//--------------------------------
-				//antidepressants and alcohol are good for you
-				if (antiDepressionFMin == 1) {
+				//medicine and nectar are good for you
+				if (medicineFMin == 1) {
 					fearGaugeForMathDisplay *= 0.85f;
-					antiDepressionFMin = 0;
+					medicineFMin = 0;
 					fearGaugeForMathDisplay = Mathf.Round (fearGaugeForMathDisplay );
 					fearGaugeForMath = fearGaugeForMathMax - fearGaugeForMathDisplay;
 					
 				}
-				if (playerInstance.alcohol == false) {
-					if (alcoholFMincd == false) {
+				if (playerInstance.nectar == false) {
+					if (nectarFMincd == false) {
 						StartCoroutine (passivefear ());
 					}
 				}
