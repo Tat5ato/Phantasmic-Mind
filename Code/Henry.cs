@@ -29,7 +29,7 @@ public class Henry : MonoBehaviour{
 
 	// Temporary
 	public bool antiDepression = false;
-	public bool alcohol = false;
+	public bool Nectar = false;
 
     // Main function
 	void Update() {
@@ -37,12 +37,12 @@ public class Henry : MonoBehaviour{
 		// Set Attack Value
 		float attack = Random.Range(7f, 10f);
 
-		// Apply buffs if antiDepression of alcohol in inventory
+		// Apply buffs if antiDepression of Nectar in inventory
 		if (antiDepression == true) {
 			// Apply attack buff 2X & defense 1.33
 		}
 			
-		if (alcohol == true) {
+		if (Nectar == true) {
 			// Apply attack buff 2X & defense 1.33
 		}
 
