@@ -1,3 +1,10 @@
+//displays ui (inventory) on henry
+
+//add change alcoholUse and antiDepressionUse in Henry.cs to true when used
+
+//allows item access on ui (inventory)
+
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
