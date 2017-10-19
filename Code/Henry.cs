@@ -1,8 +1,8 @@
 //all public vars to be changed for game.
 
-//call real enemy HP to enemyTestHP in update
+//add call real enemy HP to enemyTestHP in update for full game
 
-//call real health to HP in update
+//add call real health to HP in update for full game
 
 //this script is to be put on Henry to act as the main value holder
 
