@@ -2,6 +2,8 @@
 
 //call real enemy HP to enemyTestHP in update
 
+//call real health to HP in update
+
 //this script is to be put on Henry to act as the main value holder
 
 
