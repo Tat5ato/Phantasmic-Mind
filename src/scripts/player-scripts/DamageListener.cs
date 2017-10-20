@@ -1,0 +1,27 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Damage : MonoBehaviour {
+
+	public bool isEnemyHit = true;
+	public double enemyDefense = 2f;
+
+	//calls on the enemyTestHP and attack in henry.cs, can be replaced with a local variable if needed
+	Henry playerInstance;
+
+	void Update(){
+
+		//calling on enemyTestHpP and attack pt.2
+		playerInstance = GetComponent<Henry>();
+			if (isEnemyHit == true) {
+					playerInstance.enemyTestHP -= (playerInstance.attack / enemyDefense);
+					isEnemyHit = false;
+
+
+				}
+
+			}
+		}
+
+
