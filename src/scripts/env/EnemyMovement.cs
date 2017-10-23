@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,9 +11,10 @@ public class Movement : MonoBehaviour {
 
 	//Parameters
 	bool _moveToA = true;
-	float _moveSpeed = 0.05f;
+	float _moveSpeed = 0.1f;
 	float _activateFollowRadius = 5.0f;
 	bool _followActive = false;
+	private float EnemyRadius = 20.0f;
 
 	// Use this for initialization
 	void Start()
@@ -23,16 +24,26 @@ public class Movement : MonoBehaviour {
 	// Update is called once per frame
 	void Update()
 	{
+		//Checks if player is in radius
 		if (IsPlayerWithinFollowRadius())
 		{
 			_followActive = true;
 		}
+		//Checks if the enemy is far enough away from its origin point 
+		if (CheckDistanceToOrigin ()) 
+		{
+			_followActive = false;
+		}
+		//Causes enemy to move towards the player
 		if (_followActive)
 		{
 			MoveTowardsPlayer();
 		}
+
 		else
 		{
+			//Moves player back and fowarth
+
 			if (_moveToA == true)
 			{
 				var move = CalculateMove(NavPointA);
@@ -45,7 +56,7 @@ public class Movement : MonoBehaviour {
 			}
 		}
 	}
-
+	//Makes the enemy moves back and forth
 	Vector2 CalculateMove(Transform targetNavPoint)
 	{
 		Vector2 direction = (targetNavPoint.position - this.transform.position);
@@ -59,7 +70,7 @@ public class Movement : MonoBehaviour {
 		}
 		return vectorDeOffset;
 	}
-
+	//Creates the radius of the enemy that the player will move into (activates follow)
 	bool IsPlayerWithinFollowRadius()
 	{
 		var distanceToPlayer = (Player.transform.position - this.transform.position).magnitude;
@@ -75,11 +86,13 @@ public class Movement : MonoBehaviour {
 
 	void MoveTowardsPlayer()
 	{
+		//Makes the enemy move towards player
 		var moveVector = ((Player.transform.position - this.transform.position).normalized) * _moveSpeed;
 		this.transform.position = this.transform.position + moveVector;
 	}
 	bool CheckDistanceToOrigin()
 	{
+		//Makes the enemy stop at a certain distance from its origin point
 		var DistanceToOrigin = Player.transform.position.magnitude;
 		if (EnemyRadius <= DistanceToOrigin) 
 		{
@@ -91,6 +104,3 @@ public class Movement : MonoBehaviour {
 		}
 	}
 }
-
-	
-
