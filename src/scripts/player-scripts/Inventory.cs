@@ -64,12 +64,14 @@ public class HUDIcons : MonoBehaviour {
 		//DISPLAYING ITEM BOXES
 		for (int i = 0; i < 6; i++) {
 			GUI.DrawTexture (new Rect ((Screen.width /2)- ((i-2)*100),Screen.height - 75, 75, 75), inventorySlot, ScaleMode.StretchToFill, true, 10.0F);
-         
+         //I NEED SPRITES FOR STYLIZED INVENTORY SLOTS
 	 
 		}
 		//SECTION END
 
 		//DISPLAYING ITEMS (TEXTURES)
+		
+		//I NEED SPRITES FOR THE DIFFERENT ITEMS
 		for (int i = 0; i < 6; i++) {
 			if (Items [i] != null) {
 				if (Items [i].name != "P_Orange01") {
