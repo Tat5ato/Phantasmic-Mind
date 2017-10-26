@@ -104,3 +104,13 @@ public class Movement : MonoBehaviour {
 		}
 	}
 }
+
+/*The enemy is a 3d game object with a cube mesh filter, Box collider, Mesh renderer(Default settings that come with the
+3d objects), also has a movement script with three public transforms, which are the player, NavPointA and NavPointB. NavPointA
+and B both are empty objects with the Sine Movement code(optional, it makes the nav points move up and down causing a patrol
+movement for enemy) Contact me if you want the sine movement in the game. The Nav Points are supposed make the enemy to move
+back and forth between the two nav points. The Player is attached to a public transform in the code, so you can just attach 
+the payer asset into the public transform "player".*/
+
+
+
