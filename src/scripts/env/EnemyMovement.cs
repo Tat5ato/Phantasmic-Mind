@@ -83,10 +83,10 @@ public class Movement : MonoBehaviour {
 			return false;
 		}
 	}
-
+  
 	void MoveTowardsPlayer()
 	{
-		//Makes the enemy move towards player
+		//Causes the enemy to move towards player
 		var moveVector = ((Player.transform.position - this.transform.position).normalized) * _moveSpeed;
 		this.transform.position = this.transform.position + moveVector;
 	}
