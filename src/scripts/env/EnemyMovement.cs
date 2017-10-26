@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Movement : MonoBehaviour {
-
+// Made by Sebastian Carbonero and Adrien Cao
 	//Referenced Game Objects
 	public Transform Player;
 	public Transform NavPointA;
