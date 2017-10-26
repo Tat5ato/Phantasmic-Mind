@@ -23,7 +23,7 @@ public class fearGaugeCalculator: MonoBehaviour {
 	public int newEnemyFear = 0;
 	public bool newAreaFear = false;
 	private float fearGaugeForMath = 100f;
-	Henry playerInstance;
+	Player playerInstance;
 	PlayerMovement playerInstanceTwo;
 
 	//https://docs.unity3d.com/ScriptReference/MonoBehaviour.StartCoroutine.html pretty cool
@@ -60,7 +60,7 @@ public class fearGaugeCalculator: MonoBehaviour {
 
 	void Update () {
 		playerInstanceTwo = GetComponent<PlayerMovement> ();
-		playerInstance = GetComponent<Henry> ();
+		playerInstance = GetComponent<Player> ();
 		//--------------------------------
 		//checking if medicine is currently in use, then updates code to try to reduce fear if not insane
 		if (medicineActive == false) {
