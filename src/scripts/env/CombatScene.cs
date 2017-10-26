@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor.SceneManagement;
 
-public class datboidab : MonoBehaviour {
+public class CombatScene : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
@@ -17,8 +17,8 @@ public class datboidab : MonoBehaviour {
 //Change listed varibles to actual varibles 
 	void OnTriggerEnter(Collider other)
 	{
-		if (other.gameObject.tag == "datboi")
-			UnityEngine.SceneManagement.SceneManager.LoadScene("datboibad");
+		if (other.gameObject.tag == "player")
+			UnityEngine.SceneManagement.SceneManager.LoadScene("combatScene");
 	}
 }
 
