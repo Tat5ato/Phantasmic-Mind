@@ -11,10 +11,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class HUDIcons : MonoBehaviour {
-	public Texture HealthBar;
 	public float width;
 	public float height = 25;
-	public float Health;
 
 	public Texture inventorySlot;
 	public Texture[] Items = new Texture[6];
