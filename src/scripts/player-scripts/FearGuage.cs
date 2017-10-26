@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 //all way longer and more drawn out then it needs to be but im bad
+//Made by Liam
+
+//calls for Henry.cs and PlayerMovement.cs
+
 public class fearGaugeCalculator: MonoBehaviour {
 
-	private bool spookyFearCD = false;
-	public bool inSpookyArea = false;
-	private bool antiDepressionFMincd = false;
-	public bool awoken = false;
+	private bool AreaFearTimer = false;
+	public bool inAreaFear = false;
+	private bool medicineActive = false;
+	public bool wakeUp = false;
 	private bool Insane = false;
 	private bool fearUpgradeLevelChange = false;
 	public float fearGaugeForMathDisplay = 0;
@@ -15,7 +19,6 @@ public class fearGaugeCalculator: MonoBehaviour {
 	public bool partyMemberDied = false;
 	private bool ranAway = false;
 	private string fearUpgradeLevel = "1";
-	private float antiDepressionFMin = 0;
 	private float killedEnemy = 0;
 	public int newEnemyFear = 0;
 	public bool newAreaFear = false;
@@ -29,9 +32,9 @@ public class fearGaugeCalculator: MonoBehaviour {
 	{
 		fearGaugeForMath -= 1;
 		fearGaugeForMathDisplay = fearGaugeForMathMax - fearGaugeForMath;
-		spookyFearCD = true;
+		AreaFearTimer = true;
 		yield return new WaitForSecondsRealtime (10);
-		spookyFearCD = false;
+		AreaFearTimer = false;
 	}
 		
 	IEnumerator nectarfear ()
@@ -47,10 +50,10 @@ public class fearGaugeCalculator: MonoBehaviour {
 	IEnumerator adchecker ()
 	{
 		if (playerInstance.antiDepression == true) {
-			antiDepressionFMin = 1;
-			antiDepressionFMincd = true;
+			
+			medicineActive = true;
 			yield return new WaitUntil (() => playerInstance.antiDepression == false);
-			antiDepressionFMincd = false;
+			medicineActive = false;
 		}
 
 	}
@@ -59,14 +62,14 @@ public class fearGaugeCalculator: MonoBehaviour {
 		playerInstanceTwo = GetComponent<PlayerMovement> ();
 		playerInstance = GetComponent<Henry> ();
 		//--------------------------------
-		//checking if antidepression is currently in use, then updates code to try to reduce fear if not insane
-		if (antiDepressionFMincd == false) {
+		//checking if medicine is currently in use, then updates code to try to reduce fear if not insane
+		if (medicineActive == false) {
 			if (playerInstance.antiDepression == true) {
 				StartCoroutine (adchecker ());
 			}
 		}
 		//--------------------------------
-		//ded checker
+		//dead checker
 		if (fearGaugeForMath < 1) {
 			Insane = true;
 			fearGaugeForMathDisplay = fearGaugeForMathMax;
@@ -113,7 +116,7 @@ public class fearGaugeCalculator: MonoBehaviour {
 			fearGaugeForMath = fearGaugeForMathMax;
 		}
 		//-------------------------------
-		//fear can be toooooo bad
+		//fear can be too bad
 		if (fearGaugeForMathDisplay > fearGaugeForMathMax) {
 				fearGaugeForMathDisplay = fearGaugeForMathMax;
 		}
@@ -135,22 +138,22 @@ public class fearGaugeCalculator: MonoBehaviour {
                 fearGaugeForMathDisplay = fearGaugeForMathMax - fearGaugeForMath;
             }
             //--------------------------------
-            //Running away from fights is bad
+            //Running away from fights; increasing fear
             if (ranAway == true)
             {
                 fearGaugeForMath -= 15;
                 ranAway = false;
             }
             //--------------------------------
-            //spooky area is bad
-            if (inSpookyArea == true)
+            //in an shadow area, if true passivly gain fear
+            if (inAreaFear == true)
             {
-                if (spookyFearCD == false)
+                if (AreaFearTimer == false)
                 {
                     StartCoroutine(spookyAreaFear());
                 }
             }
-            //Afraid of the unknown
+            //Enter new area; gain a little fear
             if (newAreaFear == true)
             {
                 fearGaugeForMath -= 10;
@@ -158,7 +161,7 @@ public class fearGaugeCalculator: MonoBehaviour {
                 fearGaugeForMathDisplay = fearGaugeForMathMax - fearGaugeForMath;
             }
             //--------------------------------
-            //save your friends or else
+            //party member died; gain fear
             if (partyMemberDied == true)
             {
                 fearGaugeForMath -= 15;
@@ -168,7 +171,7 @@ public class fearGaugeCalculator: MonoBehaviour {
             //--------------------------------
             //fear decreasing factors
             //--------------------------------
-            //facing fears 1-normal enemy 2-biggo bosso
+            //if killedEnemy is: 1-normal enemy 2-boss; lose more fear for killing a boss
             if (killedEnemy == 1)
             {
                 fearGaugeForMath += 1;
@@ -182,11 +185,11 @@ public class fearGaugeCalculator: MonoBehaviour {
                 fearGaugeForMathDisplay = fearGaugeForMathMax - fearGaugeForMath;
             }
             //--------------------------------
-            //antidepressants and alcohol are good for you
-            if (antiDepressionFMin == 1)
+            //medicene and nectar fear reduction
+            if (playerInstance.antiDepression  == true)
             {
                 fearGaugeForMathDisplay *= 0.85f;
-                antiDepressionFMin = 0;
+               
                 fearGaugeForMathDisplay = Mathf.Round(fearGaugeForMathDisplay);
                 fearGaugeForMath = fearGaugeForMathMax - fearGaugeForMathDisplay;
 
@@ -200,11 +203,13 @@ public class fearGaugeCalculator: MonoBehaviour {
         }
 			//---------------------------------
 			//waking up
-		if (awoken == true) {
+		if (wakeUp == true) {
 			fearGaugeForMath = fearGaugeForMathMax;
             fearGaugeForMathDisplay = fearGaugeForMathMax - fearGaugeForMath;
             Insane = false;
-			awoken = false;
+			wakeUp = false;
 		}
 	}
 }
+
+
