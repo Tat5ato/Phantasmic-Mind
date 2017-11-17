@@ -1,79 +1,106 @@
-//all public vars to be changed for game.
-
-//add call real enemy HP to enemyTestHP in update for full game
-
-//add call real health to HP in update for full game
-
-//this script is to be put on Henry to act as the main value holder
-
-//start includes calls to scripts (SCRIPT NAMES HAVE TO MATCH)
-
-
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Henry : MonoBehaviour{
 
-	// ADD - Check if item is in inventory
+public class Player : MonoBehaviour{
+	#region Class Properties
 
-	// Variables
-	public float attack = 0f;
-	public float HP = 100f;
-	public float defense = 10f;
-	private int attackType = 0;
-	private int defenseType = 0;
-	public float enemyTestHP = 100f;
-	public float fearGuage = 30f;
+	private int level;
+	private int xpMax;
+	public int xp;
+	private int fearMax;
+	public int fear;
+	public int attack;
+	private int healthMax;
+	public int health;
+	public int luck;
+	private int specialChargeMax;
+	public int specialCharge;
 
-	// Temporary
-	public bool antiDepression = false;
-	public bool Nectar = false;
-
-    // Main function
-	void Update() {
-
-		// Set Attack Value
-		float attack = Random.Range(7f, 10f);
-
-		// Apply buffs if antiDepression of Nectar in inventory
-		if (antiDepression == true) {
-			// Apply attack buff 2X & defense 1.33
-		}
-			
-		if (Nectar == true) {
-			// Apply attack buff 2X & defense 1.33
-		}
-
-		// Defense Type Switch
-		switch(defenseType){
-		default:
-			defense = 10f;
-			break;
-		case 1:
-			defense = (defense - 1.33f);
-			break;
-		}
-
-		// AttackType switch
-		switch (attackType) {
-		default:
-			attack = Random.Range (7f, 10f);
-			break;
-		case 1:
-			attack = (attack * 1.5f);
-			break;
-		case 2:
-			attack = (attack * 2f);
-			break;
-		}
+	void Start () {
+		level = 1;
+		xpMax = 10;
+		xp = 0;
+		fearMax = 50;
+		fear = 0;
+		attack = 5;
+		healthMax = 20;
+		health = healthMax;
+		luck = 2;
+		specialCharge = 5;
 	}
 
 
-	//fear
-	//GUI
+	#endregion
 
+	bool IsDead() {
+		return this.health <= 0;
+	}
 
+	bool TakeDamage(int dmg) { 
+		this.health -= dmg;
+		return this.IsDead ();
+	}
+
+	bool TakeDamage(float dmg) {
+		int realDmg = Mathf.RoundToInt (dmg);
+		return this.TakeDamage (realDmg);
+	}
+
+	void Heal(int value) {
+		if (value + health > healthMax) {
+			this.health = this.healthMax;
+		} else {
+			this.health += value;
+		}
+	}
+
+	void Heal(float value) {
+		int realValue = Mathf.RoundToInt (value);
+		this.Heal (realValue);
+	}
+
+	void GainExperience(int value) {
+		this.xp += value;
+		if (this.xp >= this.xpMax) {
+			this.LevelUp ();
+		}
+	}
+
+	bool GainFear (int spook) { 
+		if (this.fear + spook >= this.fearMax) {
+			this.fear = this.fearMax;
+			return true;
+		} else {
+			this.fear += spook;
+			return false;
+		}
+	}
+	bool GainFear (float spook) {
+		int realFear = Mathf.RoundToInt (spook);
+		return this.GainFear (realFear);
+	}
+
+	void LevelUp() {
+		this.level++;
+		this.xp -= this.xpMax;
+		this.xpMax += 5;
+		this.fearMax += 10;
+		this.attack += 1;
+		this.healthMax += 5;
+		luck += 1;
+		if (level % 10 == 0 && specialCharge > 2) {
+			specialChargeMax -= 1;
+		}
+
+		this.health = healthMax;
+
+		if (xp > xpMax) {
+			LevelUp ();
+		}
+			
+	}
 
 }
+
