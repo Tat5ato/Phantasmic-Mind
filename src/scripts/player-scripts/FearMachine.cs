@@ -3,17 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FearMachine : MonoBehaviour {
-	/*
-	public Transform Spider;
-	public Transform Water;
-	public Transform Blood;
-	public Transform Quadrupeds; // 4-Limbed Animals
-	public Transform Doll;
-	public Transform Thunder;
-	public Transform Ghosts;
-	public Transform Clowns;
-	public Transform Holes;
-*/
+	
 	float maxRadius = 15.0f;
 	public string Playerfear;
 	public string Thunder;
