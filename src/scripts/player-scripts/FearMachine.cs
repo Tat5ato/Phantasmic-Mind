@@ -54,40 +54,4 @@ public class FearMachine : MonoBehaviour {
 			}
 		}
 
-
-	
-	}
-	// Fear of Spiders
-	public void Arachnophobia () 
-	{ 
-
-    }
-	public void Acrophobia () { // Fear of Heights
-
-	}
-	public void Aquaphobia () { // Fear of Water and Aquatic Things
-
-	}
-	public void Hemophobia () { // Fear of Blood
-
-	}
-	public void Zoophobia () { // Fear of 4-limbed animals
-
-	}
-	public void Pediophobia () { // Fear of Dolls
-
-	}
-	public void Astraphobia () { // Fear of Thunder/Lightning
-
-	}
-	public void Spectrophobia () { // Fear of Ghosts
-
-	}
-	public void Coulrophobia () { // Fear of Clowns
-
-	}
-	public void Trypophobia () { //Fear of Holes
-
-	}
-
 }
